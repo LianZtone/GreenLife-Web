@@ -346,7 +346,7 @@ function viewProduct(product) {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .favorites {
     margin-top: -100px;

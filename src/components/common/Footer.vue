@@ -6,32 +6,40 @@
                     <h3>GreenLife</h3>
                     <p>Menyediakan produk organik terbaik untuk mendukung gaya hidup sehat dan ramah lingkungan.</p>
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <button type="button" aria-label="Facebook" @click="showSocialInfo('Facebook')">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" aria-label="Instagram" @click="showSocialInfo('Instagram')">
+                            <i class="fab fa-instagram"></i>
+                        </button>
+                        <button type="button" aria-label="Twitter" @click="showSocialInfo('Twitter')">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button type="button" aria-label="YouTube" @click="showSocialInfo('YouTube')">
+                            <i class="fab fa-youtube"></i>
+                        </button>
                     </div>
                 </div>
 
                 <div class="footer-column fade-in delay-1">
                     <h3>Tautan Cepat</h3>
                     <ul>
-                        <li><a href="#">Beranda</a></li>
-                        <li><a href="#">Produk</a></li>
-                        <li><a href="#">Artikel</a></li>
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Kontak</a></li>
+                        <li><router-link to="/">Beranda</router-link></li>
+                        <li><router-link to="/produk">Produk</router-link></li>
+                        <li><router-link to="/artikel">Artikel</router-link></li>
+                        <li><router-link to="/tentang">Tentang Kami</router-link></li>
+                        <li><router-link to="/kontak">Kontak</router-link></li>
                     </ul>
                 </div>
 
                 <div class="footer-column fade-in delay-2">
                     <h3>Kategori Produk</h3>
                     <ul>
-                        <li><a href="#">Makanan Sehat</a></li>
-                        <li><a href="#">Minuman Herbal</a></li>
-                        <li><a href="#">Skincare Organik</a></li>
-                        <li><a href="#">Produk Rumah Tangga</a></li>
-                        <li><a href="#">Bahan Masak Organik</a></li>
+                        <li><router-link to="/produk">Makanan Sehat</router-link></li>
+                        <li><router-link to="/produk">Minuman Herbal</router-link></li>
+                        <li><router-link to="/produk">Skincare Organik</router-link></li>
+                        <li><router-link to="/produk">Produk Rumah Tangga</router-link></li>
+                        <li><router-link to="/produk">Bahan Masak Organik</router-link></li>
                     </ul>
                 </div>
 
@@ -53,13 +61,24 @@
 </template>
 
 <script setup>
+import Swal from 'sweetalert2'
+
 defineOptions({
     name : 'Footer'
 })
+
+function showSocialInfo(platform) {
+    Swal.fire({
+        title: `${platform} belum tersedia`,
+        text: 'Tautan media sosial ini masih berupa placeholder.',
+        icon: 'info',
+        confirmButtonColor: '#4CAF50'
+    })
+}
 </script>
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 footer {
     background: $dark-bg;
@@ -126,7 +145,8 @@ footer {
     gap: 15px;
     margin-top: 20px;
 
-    a {
+    a,
+    button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -134,7 +154,10 @@ footer {
         height: 45px;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
+        border: none;
+        color: $white;
         transition: $transition;
+        cursor: pointer;
 
         &:hover {
             background: $primary;

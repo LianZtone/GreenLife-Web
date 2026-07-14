@@ -72,9 +72,9 @@
                                     <span class="checkmark"></span>
                                     Ingat saya
                                 </label>
-                                <a href="#" class="forgot-password" @click.prevent="showForgotPassword">
+                                <button type="button" class="forgot-password text-link" @click="showForgotPassword">
                                     Lupa password?
-                                </a>
+                                </button>
                             </div>
 
                             <button type="submit" class="btn btn-accent auth-submit" :disabled="loading">
@@ -100,7 +100,7 @@
 
                             <div class="auth-switch">
                                 <p>Belum punya akun?
-                                    <a href="#" @click.prevent="activeForm = 'register'">Daftar di sini</a>
+                                    <button type="button" class="text-link" @click="activeForm = 'register'">Daftar di sini</button>
                                 </p>
                             </div>
                         </form>
@@ -170,9 +170,9 @@
                                     <input type="checkbox" v-model="registerForm.agreeTerms" required>
                                     <span class="checkmark"></span>
                                     Saya setuju dengan
-                                    <a href="#" @click.prevent="showTerms">Syarat & Ketentuan</a>
+                                    <button type="button" class="text-link inline-link" @click="showTerms">Syarat & Ketentuan</button>
                                     dan
-                                    <a href="#" @click.prevent="showPrivacy">Kebijakan Privasi</a>
+                                    <button type="button" class="text-link inline-link" @click="showPrivacy">Kebijakan Privasi</button>
                                 </label>
                             </div>
 
@@ -208,7 +208,7 @@
 
                             <div class="auth-switch">
                                 <p>Sudah punya akun?
-                                    <a href="#" @click.prevent="activeForm = 'login'">Masuk di sini</a>
+                                    <button type="button" class="text-link" @click="activeForm = 'login'">Masuk di sini</button>
                                 </p>
                             </div>
                         </form>
@@ -220,11 +220,13 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue' // Tambah reactive
+import { ref, reactive } from 'vue'
 import Swal from 'sweetalert2'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { saveAuthUser } from '@/utils/auth'
 
 const router = useRouter()
+const route = useRoute()
 
 const activeForm = ref('login')
 const loading = ref(false)
@@ -281,8 +283,7 @@ async function handleLogin() {
             joinDate: '2023-01-15'
         }
 
-        localStorage.setItem('user', JSON.stringify(userData))
-        localStorage.setItem('isLoggedIn', 'true')
+        saveAuthUser(userData)
 
         await Swal.fire({
             title: 'Login Berhasil!',
@@ -291,8 +292,8 @@ async function handleLogin() {
             confirmButtonColor: '#4CAF50',
             timer: 1500
         })
-        
-        router.push('/')
+
+        router.replace(getPostLoginRedirect())
     } catch (error) {
         Swal.fire({
             title: 'Login Gagal!',
@@ -314,7 +315,7 @@ function isValidEmail(email) {
 
 
 async function handleRegister() {
-    const f = registerForm.value
+    const f = registerForm
     if (!f.firstName || !f.lastName || !f.email || !f.phone || !f.password || !f.confirmPassword) {
         Swal.fire({
             title: 'Error!',
@@ -358,8 +359,7 @@ async function handleRegister() {
             joinDate: new Date().toISOString().split('T')[0]
         }
 
-        localStorage.setItem('user', JSON.stringify(userData))
-        localStorage.setItem('isLoggedIn', 'true')
+        saveAuthUser(userData)
 
         Swal.fire({
             title: 'Pendaftaran Berhasil!',
@@ -367,7 +367,7 @@ async function handleRegister() {
             icon: 'success',
             confirmButtonColor: '#4CAF50'
         }).then(() => {
-            router.push('/')
+            router.replace(getPostLoginRedirect())
         })
     } catch {
         Swal.fire({
@@ -470,11 +470,21 @@ function showPrivacy() {
         width: 600
     })
 }
+
+function getPostLoginRedirect() {
+    const redirectTarget = route.query.redirect
+
+    if (typeof redirectTarget === 'string' && redirectTarget.startsWith('/')) {
+        return redirectTarget
+    }
+
+    return '/'
+}
 </script>
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .auth {
     min-height: 100vh;
@@ -717,9 +727,14 @@ function showPrivacy() {
         }
     }
 
-    a {
+    .text-link {
         color: $primary;
         text-decoration: none;
+        background: transparent;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
 
         &:hover {
             text-decoration: underline;
@@ -731,6 +746,11 @@ function showPrivacy() {
     color: $primary;
     text-decoration: none;
     font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
 
     &:hover {
         text-decoration: underline;
@@ -820,10 +840,15 @@ function showPrivacy() {
         font-size: 0.95rem;
     }
 
-    a {
+    .text-link {
         color: $primary;
         text-decoration: none;
         font-weight: 500;
+        background: transparent;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
 
         &:hover {
             text-decoration: underline;

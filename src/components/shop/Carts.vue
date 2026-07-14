@@ -296,7 +296,7 @@ function checkout() {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .carts {
     padding: 80px 0;

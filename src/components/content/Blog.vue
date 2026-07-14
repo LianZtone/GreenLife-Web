@@ -41,9 +41,9 @@
                                     <span class="author-role">{{ featuredPost.author.role }}</span>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-accent" @click.prevent="readMore(featuredPost)">
+                            <button type="button" class="btn btn-accent" @click="readMore(featuredPost)">
                                 Baca Selengkapnya <i class="fas fa-arrow-right"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -79,9 +79,9 @@
                         </div>
 
                         <div class="blog-actions">
-                            <a href="#" class="btn" @click.prevent="readMore(post)">
+                            <button type="button" class="btn" @click="readMore(post)">
                                 Baca Selengkapnya
-                            </a>
+                            </button>
                             <button class="btn-icon" @click="toggleLike(post)" :class="{ liked: post.liked }">
                                 <i class="fas fa-heart"></i>
                             </button>
@@ -115,7 +115,7 @@
                         </form>
                     </div>
                     <div class="newsletter-image">
-                        <img loading="lazy" src="../assets/images/products/pavel-tolmachev-LqbMnLq6ri8-unsplash.webp"
+                        <img loading="lazy" :src="imgNewsletter"
                             alt="Newsletter">
                     </div>
                 </div>
@@ -135,6 +135,7 @@ import imgPost2 from '../../assets/images/products/dovile-ramoskaite-xX9SmqQCbFY
 import imgPost3 from '../../assets/images/products/matteo-di-iorio-VD-Vjc8VmRA-unsplash.webp'
 import imgPost4 from '../../assets/images/products/markus-winkler-HeqXGxnsnX4-unsplash.webp'
 import imgPost5 from '../../assets/images/products/christina-rumpf-UrXlE1GZ5PQ-unsplash.webp'
+import imgNewsletter from '../../assets/images/products/pavel-tolmachev-LqbMnLq6ri8-unsplash.webp'
 
 
 import avatarSarah from  '../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp'
@@ -338,7 +339,7 @@ function subscribeNewsletter() {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .blog {
     padding: 80px 0;

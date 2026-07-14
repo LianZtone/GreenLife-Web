@@ -33,12 +33,12 @@
                         <div class="product-category">{{ product.categoryLabel }}</div>
                     </div>
                     <div class="product-actions">
-                        <a href="#" class="btn" @click.prevent="addToCart(product)">
+                        <button type="button" class="btn" @click="addToCart(product)">
                             Beli Sekarang
-                        </a>
-                        <a href="#" class="btn btn-outline" @click.prevent="showDetail(product)">
+                        </button>
+                        <button type="button" class="btn btn-outline" @click="showDetail(product)">
                             Detail
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@ function showNotification(message) {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .product-filter {
     display: flex;

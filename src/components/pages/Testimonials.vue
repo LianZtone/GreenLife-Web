@@ -66,7 +66,7 @@ const testimonials = ref([
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .testimonials {
     background: linear-gradient(to bottom, $light-bg, $white);

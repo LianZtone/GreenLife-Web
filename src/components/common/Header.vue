@@ -25,8 +25,8 @@
                     <div id="myOverlay" class="overlay">
                         <!-- <span class="closebtn" @click="closeSearch" title="Close Overlay">x</span> -->
                         <div class="overlay-content">
-                            <form action="action_page.php" submit.prevent="handleSearch">
-                                <input type="text" placeholder="Search.." name="search">
+                           <form @submit.prevent="handleSearch">
+                                <input type="text" v-model="searchQuery" placeholder="Cari produk, artikel, atau komunitas" name="search">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -54,6 +54,8 @@ const cartCount = ref(3)
 const searchQuery = ref('')
 const isDropdownOpen = ref(false)
 const user = ref({ name: 'Guest' })
+const isDeveloping = ref(false)
+const searchResults = ref([])
 
 
 
@@ -86,6 +88,9 @@ function handleClickOutside(event) {
     }
 }
 
+const handleSearch = () => {
+  alert(`Fitur pencarian masih dalam tahap pengembangan. Kata kunci: ${searchQuery.value || 'kosong'}`);
+};
 
 
 onMounted(() => {
@@ -103,7 +108,9 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
+
+
 
 header {
     background-color: $white;
@@ -393,7 +400,11 @@ header {
     }
 }
 
-
+.dev-message {
+    color: #ff9800;
+    margin-top: 20px;
+    font-size: 24px;
+}
 
 // Responsive
 @media (max-width: 992px) {

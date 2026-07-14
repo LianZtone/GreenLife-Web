@@ -108,7 +108,7 @@ defineOptions({
 </script>
 
 <style lang="scss" scoped>
-@import '@/style.scss';
+@use "@/style.scss" as *;
 
 .about {
     padding: 80px 0;

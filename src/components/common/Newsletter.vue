@@ -33,7 +33,7 @@ function subscribe() {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .newsletter {
     background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);

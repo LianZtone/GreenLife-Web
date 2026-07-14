@@ -1,77 +1,91 @@
 <template>
     <div class="user-menu">
         <div class="user-trigger" @click="toggleMenu" ref="trigger">
-            <!-- <img :src="user.avatar" :alt="user.name" class="user-avatar"> -->
-            <!-- <span class="user-name">{{ user.firstName }}</span> -->
-            <img src="../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp" alt="" class="user-avatar"
-                srcset="">
-            <span class="user-name">Diana Sari</span>
+            <img :src="avatarSrc" :alt="displayName" class="user-avatar" srcset="">
+            <span class="user-name">{{ displayName }}</span>
             <i class="fas fa-chevron-down" :class="{ open: isMenuOpen }"></i>
         </div>
 
         <div v-if="isMenuOpen" class="user-dropdown card" ref="dropdown">
             <div class="dropdown-header">
-                <!-- <img :src="user.avatar" :alt="user.name" class="dropdown-avatar"> -->
-                <img src="../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp" alt="" class="user-avatar"
-                    srcset="">
+                <img :src="avatarSrc" :alt="displayName" class="user-avatar" srcset="">
 
                 <div class="user-info">
-                    <!-- <h4>{{ user.firstName }} {{ user.lastName }}</h4> -->
-                    <!-- <p>{{ user.email }}</p> -->
-                    <h4>Diana Sari</h4>
-                    <p>diana.sari@email.com</p>
+                    <h4>{{ displayName }}</h4>
+                    <p>{{ displayEmail }}</p>
                 </div>
             </div>
 
             <div class="dropdown-menu">
-                <router-link to="/userprofile" class="menu-item" @click="closeMenu">
-                    <i class="fas fa-user"></i>
-                    <span>Profil Saya</span>
-                </router-link>
+                <template v-if="isLoggedIn">
+                    <router-link to="/profil" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-user"></i>
+                        <span>Profil Saya</span>
+                    </router-link>
 
-                <router-link to="/pesanan" class="menu-item" @click="closeMenu">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span>Pesanan Saya</span>
-                </router-link>
+                    <router-link to="/pesanan" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Pesanan Saya</span>
+                    </router-link>
 
-                <router-link to="/addtochart" class="menu-item" @click="closeMenu">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Keranjang</span>
-                    <span class="badge" v-if="cartCount > 0">{{ cartCount }}</span>
-                </router-link>
+                    <router-link to="/keranjang" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Keranjang</span>
+                        <span class="badge" v-if="cartCount > 0">{{ cartCount }}</span>
+                    </router-link>
 
-                <router-link to="/favorit" class="menu-item" @click="closeMenu">
-                    <i class="fas fa-heart"></i>
-                    <span>Favorit</span>
-                </router-link>
+                    <router-link to="/favorit" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-heart"></i>
+                        <span>Favorit</span>
+                    </router-link>
 
-                <div class="menu-divider"></div>
+                    <div class="menu-divider"></div>
 
-                <router-link to="/komunitas" class="menu-item" @click="closeMenu">
-                    <i class="fas fa-users"></i>
-                    <span>Komunitas</span>
-                </router-link>
+                    <router-link to="/komunitas" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-users"></i>
+                        <span>Komunitas</span>
+                    </router-link>
 
-                <router-link to="/pengaturan" class="menu-item" @click="closeMenu">
-                    <i class="fas fa-cog"></i>
-                    <span>Pengaturan</span>
-                </router-link>
+                    <router-link to="/pengaturan" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-cog"></i>
+                        <span>Pengaturan</span>
+                    </router-link>
 
-                <div class="menu-divider"></div>
+                    <div class="menu-divider"></div>
 
-                <button class="menu-item logout-btn" @click="handleLogout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Keluar</span>
-                </button>
+                    <button class="menu-item logout-btn" @click="handleLogout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Keluar</span>
+                    </button>
+                </template>
+
+                <template v-else>
+                    <router-link to="/auth" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Masuk / Daftar</span>
+                    </router-link>
+
+                    <router-link to="/produk" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Jelajahi Produk</span>
+                    </router-link>
+
+                    <router-link to="/komunitas" class="menu-item" @click="closeMenu">
+                        <i class="fas fa-users"></i>
+                        <span>Komunitas</span>
+                    </router-link>
+                </template>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import fallbackAvatar from '../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp'
+import { AUTH_CHANGE_EVENT, clearAuthUser, getStoredAuthUser, isAuthenticated } from '@/utils/auth'
 
 const props = defineProps({
     user: {
@@ -89,6 +103,19 @@ const router = useRouter()
 const isMenuOpen = ref(false)
 const trigger = ref(null)
 const dropdown = ref(null)
+const authUser = ref(getStoredAuthUser())
+const isLoggedIn = ref(isAuthenticated())
+
+const displayName = computed(() => {
+    if (!authUser.value) return 'Tamu'
+    if (authUser.value.firstName || authUser.value.lastName) {
+        return [authUser.value.firstName, authUser.value.lastName].filter(Boolean).join(' ').trim()
+    }
+    return authUser.value.name || 'Tamu'
+})
+
+const displayEmail = computed(() => authUser.value?.email || 'Masuk untuk melihat akun Anda')
+const avatarSrc = computed(() => authUser.value?.avatar || fallbackAvatar)
 
 
 function toggleMenu() {
@@ -111,8 +138,7 @@ function handleLogout() {
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            localStorage.removeItem('user')
-            localStorage.removeItem('isLoggedIn')
+            clearAuthUser()
             closeMenu()
 
             Swal.fire({
@@ -122,7 +148,7 @@ function handleLogout() {
                 confirmButtonColor: '#4CAF50',
                 timer: 1500
             }).then(() => {
-                router.push('/authview')
+                router.push('/auth')
                 // window.location.reload()
             })
         }
@@ -143,17 +169,25 @@ function handleClickOutside(event) {
 
 
 onMounted(() => {
+    syncAuthState()
     document.addEventListener('click', handleClickOutside)
+    window.addEventListener(AUTH_CHANGE_EVENT, syncAuthState)
 })
 
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
+    window.removeEventListener(AUTH_CHANGE_EVENT, syncAuthState)
 })
+
+function syncAuthState() {
+    authUser.value = getStoredAuthUser()
+    isLoggedIn.value = isAuthenticated()
+}
 </script>
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .user-menu {
     position: relative;

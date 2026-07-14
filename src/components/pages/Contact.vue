@@ -51,21 +51,21 @@
                     <div class="card social-section">
                         <h4>Ikuti Kami</h4>
                         <div class="social-links">
-                            <a href="#" class="social-link">
+                            <button type="button" class="social-link" @click="showSocialInfo('Facebook')">
                                 <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="social-link">
+                            </button>
+                            <button type="button" class="social-link" @click="showSocialInfo('Instagram')">
                                 <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="social-link">
+                            </button>
+                            <button type="button" class="social-link" @click="showSocialInfo('Twitter')">
                                 <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-link">
+                            </button>
+                            <button type="button" class="social-link" @click="showSocialInfo('YouTube')">
                                 <i class="fab fa-youtube"></i>
-                            </a>
-                            <a href="#" class="social-link">
+                            </button>
+                            <button type="button" class="social-link" @click="showSocialInfo('WhatsApp')">
                                 <i class="fab fa-whatsapp"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -214,11 +214,20 @@ function toggleFaq(index) {
 function openMap() {
   window.open('https://maps.google.com', '_blank')
 }
+
+function showSocialInfo(platform) {
+  Swal.fire({
+    title: `${platform} belum tersedia`,
+    text: 'Tautan media sosial ini masih berupa placeholder.',
+    icon: 'info',
+    confirmButtonColor: '#4CAF50'
+  })
+}
 </script>
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .contact {
     padding: 80px 0;
@@ -288,7 +297,9 @@ function openMap() {
     justify-content: center;
     color: $primary;
     text-decoration: none;
+    border: none;
     transition: $transition;
+    cursor: pointer;
 
     &:hover {
         background: $primary;

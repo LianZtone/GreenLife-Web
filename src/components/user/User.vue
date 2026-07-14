@@ -490,7 +490,7 @@ function deleteAccount() {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .user-profile {
     padding: 80px 0;

@@ -480,7 +480,7 @@ function viewGuidelines() {
         html: `
       <div style="text-align: left;">
         <h4>Aturan Komunitas:</h4>
-        <ul>
+        <ul style="margin-left: 20px; padding-left: 0; list-style-type: disc;">
           <li>Hormati semua anggota komunitas</li>
           <li>Jaga kerahasiaan informasi pribadi</li>
           <li>Berbagi konten yang positif dan bermanfaat</li>
@@ -563,7 +563,7 @@ function toggleFaq(index) {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .community {
     margin-top: -100px;

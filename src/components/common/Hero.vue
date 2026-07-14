@@ -5,8 +5,8 @@
                 <h2>Hidup Sehat Bersama Alam</h2>
                 <p>Temukan produk organik terbaik untuk kesehatan dan gaya hidup ramah lingkungan. Mulai perjalanan sehat Anda bersama kami.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn">Jelajahi Sekarang</a>
-                    <a href="#" class="btn btn-outline white">Pelajari Lebih Lanjut</a>
+                    <router-link to="/produk" class="btn">Jelajahi Sekarang</router-link>
+                    <router-link to="/tentang" class="btn btn-outline white">Pelajari Lebih Lanjut</router-link>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@ defineOptions( {
 </script>
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .hero {
     background: linear-gradient(135deg, rgba(46, 125, 50, 0.9) 0%, rgba(93, 64, 55, 0.8) 100%),

@@ -12,7 +12,7 @@ import Community from '../components/content/Community.vue';
 </script>
 
 <style scoped lang="scss">
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 h1 {
   color: #2c3e50;

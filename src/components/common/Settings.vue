@@ -690,7 +690,7 @@ function deleteAccount() {
 
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .settings {
     margin-top: -100px;

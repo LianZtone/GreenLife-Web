@@ -50,7 +50,7 @@ const categories = ref([
 </script>
 
 <style lang="scss" scoped>
-@import "@/style.scss";
+@use "@/style.scss" as *;
 
 .categories {
     padding: 0px 0;
