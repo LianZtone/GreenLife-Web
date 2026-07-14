@@ -47,8 +47,11 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 import UserMenu from '@/components/user/UserMenu.vue'
 
+const router = useRouter()
 const isMenuActive = ref(false)
 const cartCount = ref(3)
 const searchQuery = ref('')
@@ -89,7 +92,25 @@ function handleClickOutside(event) {
 }
 
 const handleSearch = () => {
-  alert(`Fitur pencarian masih dalam tahap pengembangan. Kata kunci: ${searchQuery.value || 'kosong'}`);
+    const keyword = searchQuery.value.trim()
+
+    if (!keyword) {
+        Swal.fire({
+            title: 'Cari Produk',
+            text: 'Silakan ketik kata kunci terlebih dahulu.',
+            icon: 'info',
+            confirmButtonColor: '#4CAF50'
+        })
+        return
+    }
+
+    router.push({ path: '/produk', query: { search: keyword } })
+    searchQuery.value = ''
+
+    const overlay = document.getElementById('myOverlay')
+    const icon = document.getElementById('search-icon')
+    if (overlay) overlay.style.display = 'none'
+    if (icon) icon.className = 'fas fa-search'
 };
 
 

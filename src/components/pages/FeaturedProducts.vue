@@ -43,17 +43,26 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="filteredProducts.length === 0" class="empty-result fade-in">
+            <i class="fas fa-search"></i>
+            <h3>Tidak ada produk yang cocok</h3>
+            <p>Coba ubah kategori atau kata kunci pencarian untuk menemukan produk lain.</p>
+        </div>
     </section>
 </template>
 
 <script setup>
 import { ref, computed, defineEmits } from 'vue'
+import { useRoute } from 'vue-router'
+import Swal from 'sweetalert2'
 import imgPost1 from '../../assets/images/products/nrd-D6Tu_L3chLE-unsplash.webp'
 import imgPost2 from '../../assets/images/products/christina-rumpf-UrXlE1GZ5PQ-unsplash.webp'
 import imgPost3 from '../../assets/images/products/lisa-hobbs-mRaNok_Ld6s-unsplash.webp'
 import imgPost4 from '../../assets/images/products/bonnie-hawkins-B0cQroCgk5Y-unsplash.webp'
 
 const emit = defineEmits(['add-to-cart'])
+const route = useRoute()
 
 const activeFilter = ref('all')
 
@@ -108,11 +117,16 @@ const products = ref([
     }
 ])
 
+const searchQuery = computed(() => String(route.query.search || '').trim().toLowerCase())
+
 const filteredProducts = computed(() => {
-    if (activeFilter.value === 'all') return products.value
-    return products.value.filter(
-        (product) => product.category === activeFilter.value
-    )
+    return products.value.filter((product) => {
+        const matchesFilter = activeFilter.value === 'all' || product.category === activeFilter.value
+        const searchableText = `${product.name} ${product.categoryLabel} ${product.category}`.toLowerCase()
+        const matchesSearch = !searchQuery.value || searchableText.includes(searchQuery.value)
+
+        return matchesFilter && matchesSearch
+    })
 })
 
 function setFilter(filter) {
@@ -125,7 +139,17 @@ function addToCart(product) {
 }
 
 function showDetail(product) {
-    alert(`Detail untuk ${product.name}`)
+    Swal.fire({
+        title: product.name,
+        html: `
+            <div style="text-align:left">
+                <p><strong>Kategori:</strong> ${product.categoryLabel}</p>
+                <p><strong>Harga:</strong> ${product.currentPrice}</p>
+                <p><strong>Status:</strong> ${product.badge?.text || 'Produk reguler'}</p>
+            </div>
+        `,
+        confirmButtonColor: '#4CAF50'
+    })
 }
 
 function showNotification(message) {
@@ -215,6 +239,23 @@ function showNotification(message) {
         font-size: 1.2rem;
         margin-bottom: 10px;
         flex-grow: 1;
+    }
+}
+
+.empty-result {
+    text-align: center;
+    padding: 30px 20px 10px;
+    color: $light-text;
+
+    i {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: $primary;
+    }
+
+    h3 {
+        color: $text;
+        margin-bottom: 8px;
     }
 }
 

@@ -1,0 +1,21 @@
+.login-checkbox {
+    column-gap: 18px;
+    grid-template-columns: 42px minmax(0, 1fr);
+
+    .checkmark {
+        width: 42px;
+        height: 24px;
+        min-width: 42px;
+    }
+
+    .checkmark:after {
+        width: 18px;
+        height: 18px;
+    }
+
+    input {
+        &:checked + .checkmark:after {
+            transform: translateX(18px);
+        }
+    }
+}

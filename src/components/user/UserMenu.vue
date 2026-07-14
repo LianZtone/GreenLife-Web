@@ -83,9 +83,9 @@
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
-import Swal from 'sweetalert2'
 import fallbackAvatar from '../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp'
 import { AUTH_CHANGE_EVENT, clearAuthUser, getStoredAuthUser, isAuthenticated } from '@/utils/auth'
+import { useAuthDialogs } from '@/composables/useAuthDialogs'
 
 const props = defineProps({
     user: {
@@ -99,6 +99,7 @@ const props = defineProps({
 })
 
 const router = useRouter()
+const dialogs = useAuthDialogs()
 
 const isMenuOpen = ref(false)
 const trigger = ref(null)
@@ -127,27 +128,12 @@ function closeMenu() {
 }
 
 function handleLogout() {
-    Swal.fire({
-        title: 'Konfirmasi Keluar',
-        text: 'Apakah Anda yakin ingin keluar dari akun?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Ya, Keluar',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
+    dialogs.confirmLogout().then((result) => {
         if (result.isConfirmed) {
             clearAuthUser()
             closeMenu()
 
-            Swal.fire({
-                title: 'Berhasil Keluar!',
-                text: 'Anda telah berhasil keluar dari akun',
-                icon: 'success',
-                confirmButtonColor: '#4CAF50',
-                timer: 1500
-            }).then(() => {
+            dialogs.showLogoutSuccess().then(() => {
                 router.push('/auth')
                 // window.location.reload()
             })

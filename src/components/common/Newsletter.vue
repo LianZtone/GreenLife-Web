@@ -16,18 +16,58 @@
 
 <script setup>
 import { ref } from 'vue';
+import Swal from 'sweetalert2'
 
 defineOptions({
     name: 'Newsletter',
 })
 
 const email = ref('')
+const subscribersKey = 'greenlife_newsletter_subscribers'
 
 function subscribe() {
-    if (this.email) {
-        alert(`Terima kasih! Email ${this.email} telah berhasil didaftarkan untuk newsletter.`)
-        this.email = ''
+    const normalizedEmail = email.value.trim()
+    if (!normalizedEmail) {
+        Swal.fire({
+            title: 'Email diperlukan',
+            text: 'Silakan isi alamat email Anda terlebih dahulu.',
+            icon: 'warning',
+            confirmButtonColor: '#4CAF50'
+        })
+        return
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(normalizedEmail)) {
+        Swal.fire({
+            title: 'Email tidak valid',
+            text: 'Masukkan format email yang benar.',
+            icon: 'error',
+            confirmButtonColor: '#f44336'
+        })
+        return
+    }
+
+    const subscribers = JSON.parse(localStorage.getItem(subscribersKey) || '[]')
+    if (subscribers.includes(normalizedEmail)) {
+        Swal.fire({
+            title: 'Sudah terdaftar',
+            text: 'Email ini sudah terdaftar di newsletter.',
+            icon: 'info',
+            confirmButtonColor: '#4CAF50'
+        })
+        return
+    }
+
+    subscribers.push(normalizedEmail)
+    localStorage.setItem(subscribersKey, JSON.stringify(subscribers))
+    Swal.fire({
+        title: 'Berhasil!',
+        text: `Terima kasih! Email ${normalizedEmail} berhasil didaftarkan untuk newsletter.`,
+        icon: 'success',
+        confirmButtonColor: '#4CAF50'
+    })
+    email.value = ''
 }
 
 </script>

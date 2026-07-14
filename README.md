@@ -67,6 +67,15 @@ npm install
 npm run dev
 ```
 
+### Akun Demo Login
+
+Gunakan akun berikut untuk mencoba alur login:
+
+- `diana.sari@greenlife.test` / `Greenlife123!`
+- `admin@greenlife.test` / `Admin123!`
+
+Kedua akun ini disimpan sebagai demo lokal di frontend.
+
 ### Script Tersedia
 
 - `npm run dev` - Menjalankan project dalam mode development
@@ -145,6 +154,15 @@ Features that are still incomplete or simulation-based:
 npm install
 npm run dev
 ```
+
+### Demo Login Accounts
+
+Use the following accounts to test the login flow:
+
+- `diana.sari@greenlife.test` / `Greenlife123!`
+- `admin@greenlife.test` / `Admin123!`
+
+These accounts are stored locally as frontend demo data.
 
 ### Available Scripts
 
