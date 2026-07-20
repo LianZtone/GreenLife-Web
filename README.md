@@ -103,6 +103,7 @@ Sistem ini dikembangkan dengan bantuan AI.
   <img src="docs/images/artikel.png" width="220" alt="Artikel" />
 </p>
 <p>
+    Responsif Mobile
     <img src="docs/images/mobileResoposif.png" width="220" alt="Responsif Mobile" />
 </p>
 
