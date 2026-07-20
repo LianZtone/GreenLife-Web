@@ -87,56 +87,22 @@ Kedua akun ini disimpan sebagai demo lokal di frontend.
 Sistem ini dikembangkan dengan bantuan AI.
 
 ### Screenshots
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="300">
-        <img src="docs/images/cover.png" width="100%" /><br>
-        <h3>Cover</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/product.png" width="100%" /><br>
-        <h3>Produk</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/detailProduct.png" width="100%" /><br>
-        <h3>Detail Produk</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/keranjang.png" width="100%" /><br>
-        <h3>Keranjang</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/pesananSaya.png" width="100%" /><br>
-        <h3>Pesanan Saya</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/favorit.png" width="100%" /><br>
-        <h3>Favorit</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/login.png" width="100%" />
-        <img src="docs/images/register.png" width="100%" /><br>
-        <h3>Login/Register</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/profile.png" width="100%" />
-        <img src="docs/images/profile.png" width="100%" /><br>
-        <h3>Profile/Pengaturan</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/comunity.png" width="100%" />
-        <img src="docs/images/artikel.png" width="100%" /><br>
-        <h3>Komunitas/Artikel</h3>
-      </td>
-      <td align="center" width="300">
-        <img src="docs/images/mobileResoposif.png" width="100%" /><br>
-        <h3>Responsif Mobile</h3>
-      </td>
-    </tr>
-  </table>
-</div>
-
+<p align="center">
+  <a href="#cover">
+    <img src="docs/images/cover.png" width="220" alt="Cover" />
+  </a>
+  <img src="docs/images/product.png" width="220" alt="Produk" />
+  <img src="docs/images/detailProduct.png" width="220" alt="Detail Produk" />
+  <img src="docs/images/keranjang.png" width="220" alt="Keranjang" />
+  <img src="docs/images/pesananSaya.png" width="220" alt="Pesanan Saya" />
+  <img src="docs/images/favorit.png" width="220" alt="Favorit" />
+  <img src="docs/images/login.png" width="220" alt="Login" />
+  <img src="docs/images/register.png" width="220" alt="Register" />
+  <img src="docs/images/profile.png" width="220" alt="Profile" />
+  <img src="docs/images/comunity.png" width="220" alt="Komunitas" />
+  <img src="docs/images/artikel.png" width="220" alt="Artikel" />
+  <img src="docs/images/mobileResoposif.png" width="220" alt="Responsif Mobile" />
+</p>
 ---
 
 ## English
