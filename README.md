@@ -101,8 +101,11 @@ Sistem ini dikembangkan dengan bantuan AI.
   <img src="docs/images/profile.png" width="220" alt="Profile" />
   <img src="docs/images/comunity.png" width="220" alt="Komunitas" />
   <img src="docs/images/artikel.png" width="220" alt="Artikel" />
-  <img src="docs/images/mobileResoposif.png" width="220" alt="Responsif Mobile" />
 </p>
+<p>
+    <img src="docs/images/mobileResoposif.png" width="220" alt="Responsif Mobile" />
+</p>
+
 ---
 
 ## English
