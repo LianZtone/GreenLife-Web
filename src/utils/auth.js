@@ -12,7 +12,7 @@ const DEMO_USERS = [
     lastName: 'Sari',
     email: 'diana.sari@greenlife.test',
     phone: '+6281234567890',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    avatar: '',
     joinDate: '2023-01-15',
     password: 'Greenlife123!'
   },
@@ -22,7 +22,7 @@ const DEMO_USERS = [
     lastName: 'GreenLife',
     email: 'admin@greenlife.test',
     phone: '+6281234567891',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    avatar: '',
     joinDate: '2023-02-01',
     password: 'Admin123!'
   }

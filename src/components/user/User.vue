@@ -230,7 +230,7 @@ import { ref, reactive, onMounted } from 'vue'
 import Swal from 'sweetalert2'
 
 
-import avatarSarah from  '../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp'
+import avatarSarah from  '@/assets/images/avatars/jake-nackos-IF9TK5Uy-KI-unsplash.webp'
 
 const activeTab = ref('profile')
 const saving = ref(false)

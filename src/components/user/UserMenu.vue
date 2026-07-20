@@ -83,7 +83,7 @@
 <script setup>
 import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
-import fallbackAvatar from '../../assets/images/avatars/alex-suprun-mynsNaNwVDc-unsplash.webp'
+import fallbackAvatar from '../../assets/images/avatars/user.png'
 import { AUTH_CHANGE_EVENT, clearAuthUser, getStoredAuthUser, isAuthenticated } from '@/utils/auth'
 import { useAuthDialogs } from '@/composables/useAuthDialogs'
 

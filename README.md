@@ -86,6 +86,11 @@ Kedua akun ini disimpan sebagai demo lokal di frontend.
 
 Sistem ini dikembangkan dengan bantuan AI.
 
+### Screenshots
+
+Hero
+![Cover](docs/images/cover.png)
+
 ---
 
 ## English

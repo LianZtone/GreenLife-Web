@@ -33,7 +33,7 @@
                         <div class="product-category">{{ product.categoryLabel }}</div>
                     </div>
                     <div class="product-actions">
-                        <button type="button" class="btn" @click="addToCart(product)">
+<button type="button" class="btn" @click="handleBuyNow(product)">
                             Beli Sekarang
                         </button>
                         <button type="button" class="btn btn-outline" @click="showDetail(product)">
@@ -53,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineEmits } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Swal from 'sweetalert2'
 import imgPost1 from '../../assets/images/products/nrd-D6Tu_L3chLE-unsplash.webp'
@@ -61,7 +61,10 @@ import imgPost2 from '../../assets/images/products/christina-rumpf-UrXlE1GZ5PQ-u
 import imgPost3 from '../../assets/images/products/lisa-hobbs-mRaNok_Ld6s-unsplash.webp'
 import imgPost4 from '../../assets/images/products/bonnie-hawkins-B0cQroCgk5Y-unsplash.webp'
 
-const emit = defineEmits(['add-to-cart'])
+// Cart global pakai composable
+import { useCart } from '@/composables/useCart'
+
+const { addToCart } = useCart()
 const route = useRoute()
 
 const activeFilter = ref('all')
@@ -77,7 +80,7 @@ const filters = [
 const products = ref([
     {
         id: 1,
-        name: 'Paket Buah Organik Segar',
+        name: 'Fresh Immunity Pack',
         category: 'makanan',
         categoryLabel: 'Makanan Sehat',
         image: imgPost1,
@@ -133,22 +136,32 @@ function setFilter(filter) {
     activeFilter.value = filter
 }
 
-function addToCart(product) {
-    emit('add-to-cart', product)
+function handleBuyNow(product) {
+    addToCart(product)
     showNotification(`${product.name} telah ditambahkan ke keranjang!`)
 }
+
 
 function showDetail(product) {
     Swal.fire({
         title: product.name,
         html: `
-            <div style="text-align:left">
-                <p><strong>Kategori:</strong> ${product.categoryLabel}</p>
-                <p><strong>Harga:</strong> ${product.currentPrice}</p>
-                <p><strong>Status:</strong> ${product.badge?.text || 'Produk reguler'}</p>
-            </div>
+           <div style="text-align: left;">
+               <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;" />
+               <p><strong>Kategori:</strong> ${product.categoryLabel}</p>
+               <p><strong>Harga:</strong> ${product.currentPrice} ${product.originalPrice ? `<span style="text-decoration: line-through; color: #888;">${product.originalPrice}</span>` : ''}</p>
+               <p><strong>Deskripsi:</strong> Deskripsi produk akan ditampilkan di sini.</p>
+               <p></p><strong>Isi Paket:</strong> 1kg Jeruk Sunkist Organik, 500g Apel Fuji, 250g Lemon Impor, 1 Botol Madu Murni.</p>
+               <div style="margin-top: 15px;">
+                   <button type="button" class="btn" style="margin-right: 10px;" onclick="Swal.close();">Masukan ke keranjang</button>
+                   <button type="button" class="btn btn-outline" onclick="Swal.close();">Beli sekarang</button>
+
+                </div>
+           </div>
         `,
-        confirmButtonColor: '#4CAF50'
+        showCloseButton: true,
+        showConfirmButton: false,
+        width: 500
     })
 }
 
@@ -161,12 +174,26 @@ function showNotification(message) {
 <style lang="scss" scoped>
 @use "@/style.scss" as *;
 
+.section-title {
+    text-align: center;
+    margin: 20px 0 50px;
+
+    h2 {
+        font-size: 2.5rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: $light-text;
+    }
+}
+
 .product-filter {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 15px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .filter-btn {
@@ -292,19 +319,31 @@ function showNotification(message) {
 }
 
 .product-actions {
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    height: 100%;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 10px;
-    margin-top: auto;
 
     .btn {
         flex: 1;
-        justify-content: center;
-        font-size: 0.99rem;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        border-radius: 100px;
+        transition: $transition;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 1px solid $primary;
+        color: $primary;
+
+        &:hover {
+            background: $primary;
+            color: $white;
+        }
     }
 }
 
