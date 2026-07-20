@@ -88,22 +88,22 @@ Sistem ini dikembangkan dengan bantuan AI.
 
 ### Screenshots
 <p align="center">
-  <a href="#cover">
-    <img src="docs/images/cover.png" width="220" alt="Cover" />
-  </a>
-  <img src="docs/images/product.png" width="220" alt="Produk" />
-  <img src="docs/images/detailProduct.png" width="220" alt="Detail Produk" />
-  <img src="docs/images/keranjang.png" width="220" alt="Keranjang" />
-  <img src="docs/images/pesananSaya.png" width="220" alt="Pesanan Saya" />
-  <img src="docs/images/favorit.png" width="220" alt="Favorit" />
-  <img src="docs/images/login.png" width="220" alt="Login" />
-  <img src="docs/images/register.png" width="220" alt="Register" />
-  <img src="docs/images/profile.png" width="220" alt="Profile" />
-  <img src="docs/images/comunity.png" width="220" alt="Komunitas" />
-  <img src="docs/images/artikel.png" width="220" alt="Artikel" />
+    <a href="#cover">
+        <img src="docs/images/cover.png" width="220" alt="Cover" />
+    </a>
+    <img src="docs/images/product.png" width="220" alt="Produk" />
+    <img src="docs/images/detailProduct.png" width="220" alt="Detail Produk" />
+    <img src="docs/images/keranjang.png" width="220" alt="Keranjang" />
+    <img src="docs/images/pesananSaya.png" width="220" alt="Pesanan Saya" />
+    <img src="docs/images/favorit.png" width="220" alt="Favorit" />
+    <img src="docs/images/login.png" width="220" alt="Login" />
+    <img src="docs/images/register.png" width="220" alt="Register" />
+    <img src="docs/images/profile.png" width="220" alt="Profile" />
+    <img src="docs/images/comunity.png" width="220" alt="Komunitas" />
+    <img src="docs/images/artikel.png" width="220" alt="Artikel" />
 </p>
+Responsif Mobile
 <p>
-    Responsif Mobile
     <img src="docs/images/mobileResoposif.png" width="220" alt="Responsif Mobile" />
 </p>
 
